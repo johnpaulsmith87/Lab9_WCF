@@ -38,7 +38,7 @@ namespace RestaurantReviewService
         public IAsyncResult BeginGetRestaurantsByRating(int rating, AsyncCallback callback, object asyncState)
         {
             var rootElement = XMLDataAccess.GetXMLRootElement<Restaurants>();
-            var result = rootElement.Restaurant.Select(resto => new RestaurantInfo(resto)).Where(resto => resto.Rating == rating);
+            var result = rootElement.Restaurant.Select(resto => new RestaurantInfo(resto)).Where(resto => resto.Rating >= rating);
             return new CompletedAsyncResult<IEnumerable<IRestaurantInfo>>(result);
         }
         public IEnumerable<RestaurantInfo> EndGetRestaurantsByRating(IAsyncResult r)
