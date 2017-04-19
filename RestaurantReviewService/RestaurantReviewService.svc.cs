@@ -15,35 +15,50 @@ namespace RestaurantReviewService
 
         public IAsyncResult BeginGetRestaurantNames(AsyncCallback callback, object asyncState)
         {
-            throw new NotImplementedException();
+            var rootElement = XMLDataAccess.GetXMLRootElement<Restaurants>();
+            var result = rootElement.Restaurant.Select(resto => resto.Name);
+            return new CompletedAsyncResult<IEnumerable<string>>(result);
         }
         public IEnumerable<string> EndGetRestauranNames(IAsyncResult r)
         {
-            throw new NotImplementedException();
-        }
-        public IAsyncResult BeginGetRestaurantsByRating(int rating, AsyncCallback callback, object asyncState)
-        {
-            throw new NotImplementedException();
-        }
-        public IRestaurantInfo EndGetRestaurantsByRating(IAsyncResult r)
-        {
-            throw new NotImplementedException();
-        }
-        public IAsyncResult BeginSaveRestaurant(IRestaurantInfo restaurant, AsyncCallback callback, object asyncState)
-        {
-            throw new NotImplementedException();
-        }
-        public IRestaurantInfo EndSaveRestaurant(IAsyncResult r)
-        {
-            throw new NotImplementedException();
+            CompletedAsyncResult<IEnumerable<string>> result = r as CompletedAsyncResult<IEnumerable<string>>;
+            return result.Data;
         }
         public IAsyncResult BeginGetRestaurantByName(string name, AsyncCallback callback, object asyncState)
         {
-            throw new NotImplementedException();
+            var rootElement = XMLDataAccess.GetXMLRootElement<Restaurants>();
+            var result = rootElement.Restaurant.Select(resto => new RestaurantInfo(resto)).Single(resto => resto.Name == name);
+            return new CompletedAsyncResult<IRestaurantInfo>(result);
         }
         public IRestaurantInfo EndGetRestaurantByName(IAsyncResult r)
         {
-            throw new NotImplementedException();
+            CompletedAsyncResult<IRestaurantInfo> result = r as CompletedAsyncResult<IRestaurantInfo>;
+            return result.Data;
         }
+        public IAsyncResult BeginGetRestaurantsByRating(int rating, AsyncCallback callback, object asyncState)
+        {
+            var rootElement = XMLDataAccess.GetXMLRootElement<Restaurants>();
+            var result = rootElement.Restaurant.Select(resto => new RestaurantInfo(resto)).Where(resto => resto.Rating == rating);
+            return new CompletedAsyncResult<IEnumerable<IRestaurantInfo>>(result);
+        }
+        public IEnumerable<IRestaurantInfo> EndGetRestaurantsByRating(IAsyncResult r)
+        {
+            CompletedAsyncResult<IEnumerable<IRestaurantInfo>> result = r as CompletedAsyncResult<IEnumerable<IRestaurantInfo>>;
+            return result.Data;
+        }
+        public IAsyncResult BeginSaveRestaurant(IRestaurantInfo restaurant, AsyncCallback callback, object asyncState)
+        {
+            var rootElement = XMLDataAccess.GetXMLRootElement<Restaurants>();
+            var restaurantToModify = rootElement.Restaurant.Single(resto => resto.Name == restaurant.Name);
+            restaurantToModify.Summary = restaurant.Summary;
+            restaurantToModify.Rating = restaurant.Rating;
+            var result = XMLDataAccess.SaveToXML(rootElement);
+            return new CompletedAsyncResult<bool>(result);
+        }
+        public bool EndSaveRestaurant(IAsyncResult r)
+        {
+            CompletedAsyncResult<bool> result = r as CompletedAsyncResult<bool>;
+            return result.Data;
+        } 
     }
 }

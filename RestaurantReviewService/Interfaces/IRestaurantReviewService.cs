@@ -26,13 +26,10 @@ namespace RestaurantReviewService
 
         [OperationContract(AsyncPattern = true)]
         IAsyncResult BeginGetRestaurantsByRating(int rating, AsyncCallback callback, object asyncState);
-        IRestaurantInfo EndGetRestaurantsByRating(IAsyncResult r);
+        IEnumerable<IRestaurantInfo> EndGetRestaurantsByRating(IAsyncResult r);
 
         [OperationContract(AsyncPattern = true)]
         IAsyncResult BeginSaveRestaurant(IRestaurantInfo restaurant, AsyncCallback callback, object asyncState);
-        IRestaurantInfo EndSaveRestaurant(IAsyncResult r);
-
-
-        // TODO: Add your service operations here
+        bool EndSaveRestaurant(IAsyncResult r);
     }
 }
