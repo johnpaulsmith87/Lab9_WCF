@@ -52,6 +52,13 @@ namespace RestaurantReviewService
             var restaurantToModify = rootElement.Restaurant.Single(resto => resto.Name == restaurant.Name);
             restaurantToModify.Summary = restaurant.Summary;
             restaurantToModify.Rating = restaurant.Rating;
+            restaurantToModify.RestaurantAddress = new AddressType()
+            {
+                Address = restaurant.Location.Street,
+                City = restaurant.Location.City,
+                Province = (ProvinceType)Enum.Parse(typeof(ProvinceType), restaurant.Location.Province),
+                PostalCode = restaurant.Location.PostalCode
+            };
             var result = XMLDataAccess.SaveToXML(rootElement);
             return new CompletedAsyncResult<bool>(result);
         }
