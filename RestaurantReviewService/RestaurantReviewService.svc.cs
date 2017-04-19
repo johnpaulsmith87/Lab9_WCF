@@ -56,7 +56,7 @@ namespace RestaurantReviewService
             {
                 Address = restaurant.Location.Street,
                 City = restaurant.Location.City,
-                Province = (ProvinceType)Enum.Parse(typeof(ProvinceType), restaurant.Location.Province),
+                Province = Utility.Utility.StringToProvinceType[restaurant.Location.Province],
                 PostalCode = restaurant.Location.PostalCode
             };
             var result = XMLDataAccess.SaveToXML(rootElement);
