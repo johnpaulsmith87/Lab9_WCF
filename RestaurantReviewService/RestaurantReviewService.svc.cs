@@ -5,6 +5,8 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
+using RestaurantReviewService.Utility;
+using System.Threading;
 
 namespace RestaurantReviewService
 {
@@ -39,11 +41,11 @@ namespace RestaurantReviewService
         {
             var rootElement = XMLDataAccess.GetXMLRootElement<Restaurants>();
             var result = rootElement.Restaurant.Select(resto => new RestaurantInfo(resto)).Where(resto => resto.Rating >= rating);
-            return new CompletedAsyncResult<IEnumerable<IRestaurantInfo>>(result);
+            return new CompletedAsyncResult<IEnumerable<RestaurantInfo>>(result);
         }
         public IEnumerable<RestaurantInfo> EndGetRestaurantsByRating(IAsyncResult r)
         {
-            CompletedAsyncResult<IEnumerable<RestaurantInfo>> result = r as CompletedAsyncResult<IEnumerable<RestaurantInfo>>;
+            CompletedAsyncResult<IEnumerable<RestaurantInfo>> result = r as CompletedAsyncResult<IEnumerable<RestaurantInfo>>;          
             return result.Data;
         }
         public IAsyncResult BeginSaveRestaurant(RestaurantInfo restaurant, AsyncCallback callback, object asyncState)
