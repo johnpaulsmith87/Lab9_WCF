@@ -10,7 +10,7 @@ namespace RestaurantReviewService
 {
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "Service1" in code, svc and config file together.
     // NOTE: In order to launch WCF Test Client for testing this service, please select Service1.svc or Service1.svc.cs at the Solution Explorer and start debugging.
-    public class Service1 : RestaurantReviewService
+    public class RestaurantReviewService : IRestaurantReviewService
     {
 
         public IAsyncResult BeginGetRestaurantNames(AsyncCallback callback, object asyncState)
@@ -19,7 +19,7 @@ namespace RestaurantReviewService
             var result = rootElement.Restaurant.Select(resto => resto.Name);
             return new CompletedAsyncResult<IEnumerable<string>>(result);
         }
-        public IEnumerable<string> EndGetRestauranNames(IAsyncResult r)
+        public IEnumerable<string> EndGetRestaurantNames(IAsyncResult r)
         {
             CompletedAsyncResult<IEnumerable<string>> result = r as CompletedAsyncResult<IEnumerable<string>>;
             return result.Data;
@@ -28,11 +28,11 @@ namespace RestaurantReviewService
         {
             var rootElement = XMLDataAccess.GetXMLRootElement<Restaurants>();
             var result = rootElement.Restaurant.Select(resto => new RestaurantInfo(resto)).Single(resto => resto.Name == name);
-            return new CompletedAsyncResult<IRestaurantInfo>(result);
+            return new CompletedAsyncResult<RestaurantInfo>(result);
         }
-        public IRestaurantInfo EndGetRestaurantByName(IAsyncResult r)
+        public RestaurantInfo EndGetRestaurantByName(IAsyncResult r)
         {
-            CompletedAsyncResult<IRestaurantInfo> result = r as CompletedAsyncResult<IRestaurantInfo>;
+            CompletedAsyncResult<RestaurantInfo> result = r as CompletedAsyncResult<RestaurantInfo>;
             return result.Data;
         }
         public IAsyncResult BeginGetRestaurantsByRating(int rating, AsyncCallback callback, object asyncState)
@@ -41,12 +41,12 @@ namespace RestaurantReviewService
             var result = rootElement.Restaurant.Select(resto => new RestaurantInfo(resto)).Where(resto => resto.Rating == rating);
             return new CompletedAsyncResult<IEnumerable<IRestaurantInfo>>(result);
         }
-        public IEnumerable<IRestaurantInfo> EndGetRestaurantsByRating(IAsyncResult r)
+        public IEnumerable<RestaurantInfo> EndGetRestaurantsByRating(IAsyncResult r)
         {
-            CompletedAsyncResult<IEnumerable<IRestaurantInfo>> result = r as CompletedAsyncResult<IEnumerable<IRestaurantInfo>>;
+            CompletedAsyncResult<IEnumerable<RestaurantInfo>> result = r as CompletedAsyncResult<IEnumerable<RestaurantInfo>>;
             return result.Data;
         }
-        public IAsyncResult BeginSaveRestaurant(IRestaurantInfo restaurant, AsyncCallback callback, object asyncState)
+        public IAsyncResult BeginSaveRestaurant(RestaurantInfo restaurant, AsyncCallback callback, object asyncState)
         {
             var rootElement = XMLDataAccess.GetXMLRootElement<Restaurants>();
             var restaurantToModify = rootElement.Restaurant.Single(resto => resto.Name == restaurant.Name);

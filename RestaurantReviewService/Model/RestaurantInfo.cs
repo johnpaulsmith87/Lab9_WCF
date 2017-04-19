@@ -34,7 +34,7 @@ namespace RestaurantReviewService
         [DataMember]
         public string Summary { get; set; }
         [DataMember]
-        public IAddress Location { get; set; }
+        public Address Location { get; set; }
     }
     [DataContract]
     public class Address : IAddress

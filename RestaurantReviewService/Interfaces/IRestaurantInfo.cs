@@ -5,7 +5,7 @@
         int Rating { get; set; }
         string Name { get; set; }
         string Summary { get; set; }
-        IAddress Location { get; set; }
+        Address Location { get; set; }
     }
 
     public interface IAddress

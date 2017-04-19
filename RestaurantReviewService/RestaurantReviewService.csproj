@@ -68,6 +68,7 @@
     <Compile Include="Model\CompletedAsyncResult.cs" />
     <Compile Include="Interfaces\IRestaurantInfo.cs" />
     <Compile Include="Model\RestaurantInfo.cs" />
+    <Compile Include="Model\XMLDataAccess.cs" />
     <Compile Include="RestaurantReviewService.svc.cs">
       <DependentUpon>RestaurantReviewService.svc</DependentUpon>
     </Compile>

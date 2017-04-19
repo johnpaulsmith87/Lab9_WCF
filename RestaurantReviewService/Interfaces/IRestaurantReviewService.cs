@@ -12,24 +12,24 @@ namespace RestaurantReviewService
     /// Asynchronus Restaurant Review Service
     /// </summary>
     [ServiceContract]
-    public interface RestaurantReviewService
+    public interface IRestaurantReviewService
     {
 
         [OperationContract(AsyncPattern = true)]
         IAsyncResult BeginGetRestaurantNames(AsyncCallback callback, object asyncState);
-        IEnumerable<string> EndGetRestauranNames(IAsyncResult r);
+        IEnumerable<string> EndGetRestaurantNames(IAsyncResult r);
           
 
         [OperationContract(AsyncPattern = true)]
         IAsyncResult BeginGetRestaurantByName(string name, AsyncCallback callback, object asyncState);
-        IRestaurantInfo EndGetRestaurantByName(IAsyncResult r);
+        RestaurantInfo EndGetRestaurantByName(IAsyncResult r);
 
         [OperationContract(AsyncPattern = true)]
         IAsyncResult BeginGetRestaurantsByRating(int rating, AsyncCallback callback, object asyncState);
-        IEnumerable<IRestaurantInfo> EndGetRestaurantsByRating(IAsyncResult r);
+        IEnumerable<RestaurantInfo> EndGetRestaurantsByRating(IAsyncResult r);
 
         [OperationContract(AsyncPattern = true)]
-        IAsyncResult BeginSaveRestaurant(IRestaurantInfo restaurant, AsyncCallback callback, object asyncState);
+        IAsyncResult BeginSaveRestaurant(RestaurantInfo restaurant, AsyncCallback callback, object asyncState);
         bool EndSaveRestaurant(IAsyncResult r);
     }
 }
