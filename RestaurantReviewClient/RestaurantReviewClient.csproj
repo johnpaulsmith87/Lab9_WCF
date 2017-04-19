@@ -100,6 +100,8 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <Content Include="Js\bootstrap.min.js" />
+    <Content Include="Js\jquery-2.2.4.min.js" />
     <Content Include="RestaurantReview.aspx" />
     <Content Include="Web.config" />
     <None Include="Connected Services\RestaurantReviewReference\RestaurantReviewService.wsdl" />

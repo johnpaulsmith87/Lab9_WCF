@@ -45,7 +45,10 @@ namespace RestaurantReviewClient
                 pnlSave.Visible = false;
             }
             else
-                pnlSelectRestaurant.Visible = false;
+            {
+                pnlRestaurantDetails.Visible = false;
+                pnlSave.Visible = false;
+            }
         }
         protected void btnSaveChanges_Click(object sender, EventArgs e)
         {
