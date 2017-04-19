@@ -8,6 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
 // 
@@ -242,6 +243,12 @@ public enum ProvinceType {
     
     /// <remarks/>
     Alberta,
+
+    [EnumMember(Value = "British Columbia")]
+    BritishColumbia,
+
+    [EnumMember(Value = "Nova Scotia")]
+    NovaScotia
 }
 
 /// <remarks/>
